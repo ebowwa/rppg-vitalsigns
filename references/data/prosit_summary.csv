@@ -1,0 +1,4 @@
+split,participants,sessions,chunks,time
+Train,114,124,6765,19.4
+Valid,23,26,1599,4.5
+Test,20,23,1403,3.9
