@@ -24,8 +24,13 @@ public class FaceDetector {
         self.faceDetectionRequest = VNDetectFaceRectanglesRequest()
         self.landmarkRequest = VNDetectFaceLandmarksRequest()
         
-        self.faceDetectionRequest.revision = VNDetectFaceRectanglesRequestRevision3
-        self.landmarkRequest.revision = VNDetectFaceLandmarksRequestRevision3
+        if #available(iOS 15.0, macOS 12.0, *) {
+            self.faceDetectionRequest.revision = VNDetectFaceRectanglesRequestRevision3
+            self.landmarkRequest.revision = VNDetectFaceLandmarksRequestRevision3
+        } else {
+            self.faceDetectionRequest.revision = VNDetectFaceRectanglesRequestRevision2
+            self.landmarkRequest.revision = VNDetectFaceLandmarksRequestRevision2
+        }
     }
     
     public func detectFace(in image: CVPixelBuffer) -> FaceRegion? {
@@ -34,7 +39,7 @@ public class FaceDetector {
         do {
             try handler.perform([faceDetectionRequest])
             
-            guard let faceObservation = faceDetectionRequest.results?.first else {
+            guard let faceObservation = faceDetectionRequest.results?.first as? VNFaceObservation else {
                 return nil
             }
             
@@ -44,7 +49,7 @@ public class FaceDetector {
             try handler.perform([landmarkRequest])
             
             var landmarks: [CGPoint] = []
-            if let landmarkObservation = landmarkRequest.results?.first,
+            if let landmarkObservation = landmarkRequest.results?.first as? VNFaceObservation,
                let allPoints = landmarkObservation.landmarks?.allPoints {
                 landmarks = allPoints.normalizedPoints.map { point in
                     CGPoint(x: boundingBox.origin.x + point.x * boundingBox.width,
@@ -70,7 +75,7 @@ public class FaceDetector {
         do {
             try handler.perform([trackingRequest])
             
-            guard let trackingObservation = trackingRequest.results?.first else {
+            guard let trackingObservation = trackingRequest.results?.first as? VNRectangleObservation else {
                 return detectFace(in: image)
             }
             

@@ -31,7 +31,11 @@ struct ContentView: View {
                     Button("Grant Permission") {
                         heartRateMonitor.requestCameraPermission()
                     }
-                    .buttonStyle(.borderedProminent)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
                 }
                 .frame(height: 300)
             }

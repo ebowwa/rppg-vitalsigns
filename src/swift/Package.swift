@@ -1,3 +1,4 @@
+// swift-tools-version: 5.7
 import PackageDescription
 
 let package = Package(
@@ -10,6 +11,9 @@ let package = Package(
         .library(
             name: "RPPGKit",
             targets: ["RPPGKit"]),
+        .executable(
+            name: "HeartRateApp",
+            targets: ["HeartRateApp"]),
     ],
     dependencies: [],
     targets: [
@@ -17,6 +21,10 @@ let package = Package(
             name: "RPPGKit",
             dependencies: [],
             path: "Sources/RPPGKit"),
+        .executableTarget(
+            name: "HeartRateApp",
+            dependencies: ["RPPGKit"],
+            path: "Examples/iOS/HeartRateApp"),
         .testTarget(
             name: "RPPGKitTests",
             dependencies: ["RPPGKit"],

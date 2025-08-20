@@ -22,8 +22,10 @@ public struct SignalProcessing {
             let stdDev = sqrt(variance)
             
             if stdDev > 0 {
-                vDSP.subtract(mean, column, result: &column)
-                vDSP.divide(column, stdDev, result: &column)
+                var meanArray = [Double](repeating: mean, count: column.count)
+                vDSP_vsubD(meanArray, 1, column, 1, &column, 1, vDSP_Length(column.count))
+                var stdDevArray = [Double](repeating: stdDev, count: column.count)
+                vDSP_vdivD(stdDevArray, 1, column, 1, &column, 1, vDSP_Length(column.count))
             }
             
             for row in 0..<result.count {
@@ -39,7 +41,9 @@ public struct SignalProcessing {
         guard input.count == jumps.count else { return result }
         
         var diff = [Double](repeating: 0, count: input.count - 1)
-        vDSP.subtract(Array(input.dropFirst()), Array(input.dropLast()), result: &diff)
+        let dropFirst = Array(input.dropFirst())
+        let dropLast = Array(input.dropLast())
+        vDSP_vsubD(dropLast, 1, dropFirst, 1, &diff, 1, vDSP_Length(diff.count))
         
         for i in 1..<jumps.count {
             if jumps[i] {
@@ -75,22 +79,28 @@ public struct SignalProcessing {
         vDSP_mmulD(d2t, 1, d2, 1, &d2td2, 1, vDSP_Length(n), vDSP_Length(n), vDSP_Length(n-2))
         
         var lambdaD2td2 = [Double](repeating: 0, count: n * n)
-        vDSP.multiply(lambda * lambda, d2td2, result: &lambdaD2td2)
+        var lambdaSquared = lambda * lambda
+        vDSP_vsmulD(d2td2, 1, &lambdaSquared, &lambdaD2td2, 1, vDSP_Length(n * n))
         
         var matrix = [Double](repeating: 0, count: n * n)
-        vDSP.add(identity, lambdaD2td2, result: &matrix)
+        vDSP_vaddD(identity, 1, lambdaD2td2, 1, &matrix, 1, vDSP_Length(n * n))
         
-        var ipiv = [__LAPACK_int](repeating: 0, count: n)
-        var info: __LAPACK_int = 0
-        var nInt = __LAPACK_int(n)
+        var ipiv = [Int32](repeating: 0, count: n)
+        var info: Int32 = 0
+        var nInt = Int32(n)
+        var nInt2 = Int32(n)
+        var nInt3 = Int32(n)
         
-        dgetrf_(&nInt, &nInt, &matrix, &nInt, &ipiv, &info)
+        dgetrf_(&nInt, &nInt2, &matrix, &nInt3, &ipiv, &info)
         
         var result = input
-        var nrhs: __LAPACK_int = 1
-        dgetrs_(UnsafeMutablePointer(mutating: "N".cString(using: .ascii)), &nInt, &nrhs, &matrix, &nInt, &ipiv, &result, &nInt, &info)
+        var nrhs: Int32 = 1
+        var nInt4 = Int32(n)
+        var nInt5 = Int32(n)
+        var nInt6 = Int32(n)
+        dgetrs_(UnsafeMutablePointer(mutating: "N".cString(using: .ascii)), &nInt4, &nrhs, &matrix, &nInt5, &ipiv, &result, &nInt6, &info)
         
-        vDSP.subtract(result, input, result: &result)
+        vDSP_vsubD(input, 1, result, 1, &result, 1, vDSP_Length(n))
         
         return result
     }
@@ -101,7 +111,7 @@ public struct SignalProcessing {
         
         for _ in 0..<iterations {
             var convolved = [Double](repeating: 0, count: result.count)
-            vDSP.convolve(result, withKernel: kernel, result: &convolved)
+            vDSP_convD(result, 1, kernel, 1, &convolved, 1, vDSP_Length(convolved.count), vDSP_Length(kernel.count))
             result = convolved
         }
         
@@ -126,8 +136,7 @@ public struct SignalProcessing {
         
         if magnitude {
             var magnitudes = [Double](repeating: 0, count: n)
-            vDSP.squareAndAdd(realp, imagp, result: &magnitudes)
-            vDSP.sqrt(magnitudes, result: &magnitudes)
+            vDSP_vdistD(realp, 1, imagp, 1, &magnitudes, 1, vDSP_Length(n))
             return magnitudes
         } else {
             return realp + imagp
@@ -149,7 +158,7 @@ public struct SignalProcessing {
         }
         
         var filtered = [Double](repeating: 0, count: n)
-        vDSP.multiply(frequencySpectrum, filter, result: &filtered)
+        vDSP_vmulD(frequencySpectrum, 1, filter, 1, &filtered, 1, vDSP_Length(n))
         
         return frequencyToTime(input: filtered)
     }
@@ -171,7 +180,7 @@ public struct SignalProcessing {
         vDSP_fft_zipD(fftSetup, &splitComplex, 1, log2n, FFTDirection(FFT_INVERSE))
         
         var scale = 1.0 / Double(n)
-        vDSP.multiply(scale, realp, result: &realp)
+        vDSP_vsmulD(realp, 1, &scale, &realp, 1, vDSP_Length(n))
         
         return realp
     }
@@ -203,12 +212,14 @@ public struct SignalProcessing {
         var eigenvalues = [Double](repeating: 0, count: cols)
         var eigenvectors = [Double](repeating: 0, count: cols * cols)
         var work = [Double](repeating: 0, count: 3 * cols)
-        var info: __LAPACK_int = 0
-        var colsInt = __LAPACK_int(cols)
+        var info: Int32 = 0
+        var colsInt = Int32(cols)
+        var colsInt2 = Int32(cols)
         
+        var workSize = Int32(3 * cols)
         dsyev_(UnsafeMutablePointer(mutating: "V".cString(using: .ascii)), 
                UnsafeMutablePointer(mutating: "U".cString(using: .ascii)), 
-               &colsInt, &covariance, &colsInt, &eigenvalues, &work, &colsInt, &info)
+               &colsInt, &covariance, &colsInt2, &eigenvalues, &work, &workSize, &info)
         
         var pcComponents = [[Double]](repeating: [Double](repeating: 0, count: rows), count: cols)
         for i in 0..<cols {
