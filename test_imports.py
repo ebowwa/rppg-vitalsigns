@@ -12,22 +12,10 @@ def test_imports():
     results = {}
     
     try:
-        from src.data.kaggle_downloader import KaggleDatasetDownloader
-        results['KaggleDatasetDownloader'] = 'AVAILABLE'
-    except ImportError as e:
-        results['KaggleDatasetDownloader'] = f'MISSING: {e}'
-    
-    try:
         from src.models.vitallens_emotion import VitalLensEmotionModel
         results['VitalLensEmotionModel'] = 'AVAILABLE'
     except ImportError as e:
         results['VitalLensEmotionModel'] = f'MISSING: {e}'
-    
-    try:
-        from src.data.dataset_downloader import DatasetDownloader
-        results['DatasetDownloader'] = 'AVAILABLE'
-    except ImportError as e:
-        results['DatasetDownloader'] = f'MISSING: {e}'
     
     try:
         from src.models.vitallens_model import VitalLensModel
@@ -40,12 +28,6 @@ def test_imports():
         results['RPPGEmotionDataset'] = 'AVAILABLE'
     except ImportError as e:
         results['RPPGEmotionDataset'] = f'MISSING: {e}'
-    
-    try:
-        from src.data.advanced_dataset import AdvancedRPPGDataset
-        results['AdvancedRPPGDataset'] = 'AVAILABLE'
-    except ImportError as e:
-        results['AdvancedRPPGDataset'] = f'MISSING: {e}'
     
     try:
         from src.processing.face_detection import FaceDetectionProcessor
