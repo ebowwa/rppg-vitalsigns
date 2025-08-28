@@ -47,6 +47,12 @@ def test_imports():
     except ImportError as e:
         results['VitalLensTrainer'] = f'MISSING: {e}'
     
+    try:
+        from scripts.download_datasets import download_traditional_rppg
+        results['download_traditional_rppg'] = 'AVAILABLE'
+    except ImportError as e:
+        results['download_traditional_rppg'] = f'MISSING: {e}'
+    
     return results
 
 if __name__ == "__main__":

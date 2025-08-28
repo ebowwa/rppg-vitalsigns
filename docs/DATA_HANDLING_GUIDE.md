@@ -102,18 +102,18 @@ dataset = collector.download_huggingface_dataset(
 For Kaggle datasets, the pipeline uses the Kaggle API:
 
 ```python
-# Setup Kaggle API credentials first
-# Place kaggle.json in ~/.kaggle/ or set KAGGLE_USERNAME/KAGGLE_KEY
+# Use the consolidated download script for all datasets
+from scripts.download_datasets import download_fer2013, download_hf_emotion_datasets
 
-from src.data.kaggle_downloader import KaggleDatasetDownloader
+# Download emotion datasets
+download_fer2013()
+download_hf_emotion_datasets()
 
-downloader = KaggleDatasetDownloader()
+# For traditional rPPG datasets with Google Drive integration
+from scripts.download_datasets import download_traditional_rppg
 
-# Download Kaggle dataset
-downloader.download_dataset(
-    dataset_id="ejlok1/audio-emotion-part-1-explore-data",
-    download_path="./data/kaggle_datasets/"
-)
+# Download UBFC-rPPG dataset
+download_traditional_rppg("UBFC-rPPG")
 
 # Download specific files only
 downloader.download_dataset(

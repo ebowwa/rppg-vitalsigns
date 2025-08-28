@@ -2,6 +2,7 @@
 
 import os
 import sys
+import zipfile
 from pathlib import Path
 from datasets import load_dataset
 import pandas as pd
@@ -10,6 +11,7 @@ from tqdm import tqdm
 import requests
 from PIL import Image
 import io
+import gdown
 
 def download_fer2013():
     print("Downloading FER2013 dataset...")
@@ -155,6 +157,57 @@ def create_dataset_summary():
     total_samples = summary_df['samples'].sum()
     print(f"\nTotal samples across all datasets: {total_samples:,}")
 
+def download_traditional_rppg(dataset_name):
+    """Download traditional rPPG datasets with Google Drive integration"""
+    print(f"📥 Downloading {dataset_name} dataset...")
+    
+    datasets_dir = Path("./datasets")
+    datasets_dir.mkdir(exist_ok=True)
+    
+    if dataset_name == "UBFC-rPPG":
+        ubfc_dir = datasets_dir / "UBFC-rPPG"
+        ubfc_dir.mkdir(exist_ok=True)
+        
+        urls = {
+            "DATASET_1": "https://drive.google.com/uc?id=1D4JNZRPcgvLzE25YkSKu3OsZqNzBfUj8",
+            "DATASET_2": "https://drive.google.com/uc?id=15rWDOWv__vKEIb9x5r4i4p5l7KgtIJ5X"
+        }
+        
+        for dataset_part, url in urls.items():
+            output_path = ubfc_dir / f"{dataset_part}.zip"
+            if not output_path.exists():
+                try:
+                    print(f"  Downloading {dataset_part}...")
+                    gdown.download(url, str(output_path), quiet=False)
+                    
+                    print(f"  Extracting {dataset_part}...")
+                    with zipfile.ZipFile(output_path, 'r') as zip_ref:
+                        zip_ref.extractall(ubfc_dir)
+                    print(f"✅ Downloaded and extracted {dataset_part}")
+                    
+                except Exception as e:
+                    print(f"❌ Failed to download {dataset_part}: {e}")
+            else:
+                print(f"✅ {dataset_part} already exists")
+                
+    elif dataset_name == "PURE":
+        pure_dir = datasets_dir / "PURE"
+        pure_dir.mkdir(exist_ok=True)
+        print(f"📥 PURE dataset download - manual download required from official source")
+        print("   Visit: https://www.tu-ilmenau.de/universitaet/fakultaeten/fakultaet-informatik-und-automatisierung/profil/institute-und-fachgebiete/institut-fuer-technische-informatik-und-ingenieurinformatik/fachgebiet-neuroinformatik-und-kognitive-robotik/data-sets-code/pulse-rate-detection-dataset-pure")
+        
+    elif dataset_name == "COHFACE":
+        cohface_dir = datasets_dir / "COHFACE"
+        cohface_dir.mkdir(exist_ok=True)
+        print(f"📥 COHFACE dataset download - manual download required from official source")
+        print("   Visit: https://www.idiap.ch/dataset/cohface")
+        
+    else:
+        print(f"❌ Unknown traditional rPPG dataset: {dataset_name}")
+        return False
+        
+    return True
+
 def main():
     print("VitalLens Multi-Modal Dataset Downloader")
     print("=" * 50)
@@ -165,6 +218,9 @@ def main():
     download_hf_emotion_datasets()
     download_mcd_rppg()
     download_eyetracking_datasets()
+    
+    print("\n📥 Downloading traditional rPPG datasets...")
+    download_traditional_rppg("UBFC-rPPG")
     
     create_dataset_summary()
     
