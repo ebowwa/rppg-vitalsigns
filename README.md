@@ -76,30 +76,40 @@ pip install -r requirements.txt
 
 ## Quick Start
 
-### Training with Modal (Recommended for experimentation)
-
+### Complete Training & Mobile Deployment
 ```bash
 # Install dependencies
 pip install -r requirements.txt
 
-# Download FER2013 emotion dataset (requires Kaggle API setup)
-python scripts/download_fer2013.py
+# Create rich dataset collection
+python scripts/create_rich_dataset.py --download-all --priority high
 
-# Train on Modal with GPU
-python scripts/train_modal.py
+# Complete pipeline: Training → Core ML → iOS
+python scripts/train_and_deploy.py --platform modal --epochs 50
+
+# Or with RunPod
+python scripts/train_and_deploy.py --platform runpod --epochs 50
+
+# Manual mobile deployment
+python scripts/deploy_mobile.py --checkpoint best_model.pth --enable-pruning --enable-quantization
+
+# One-command deployment
+./mobile_deployment/deploy_vitallens.sh modal path/to/checkpoint.pth
 ```
 
-### Training with RunPod (Recommended for longer training runs)
-
+### Training Only
 ```bash
-# Install dependencies
-pip install -r requirements.txt
+# Download datasets
+python scripts/download_datasets.py --all
 
-# Download FER2013 emotion dataset (requires Kaggle API setup)
-python scripts/download_fer2013.py
+# Train on Modal (A100)
+python scripts/train_modal.py --epochs 50 --batch-size 16
 
-# Train on RunPod
-python scripts/train_runpod.py
+# Train on RunPod (RTX 4090)
+python scripts/train_runpod.py --epochs 50 --batch-size 8
+
+# Test pipeline
+python test_pipeline.py
 ```
 
 ### Evaluation
@@ -131,6 +141,42 @@ print(f"Heart Rate: {outputs['heart_rate'].item():.1f} bpm")
 print(f"Respiratory Rate: {outputs['resp_rate'].item():.1f} bpm")
 print(f"Emotion: {torch.argmax(outputs['emotion_logits'], dim=1).item()}")
 ```
+
+## 📱 Mobile Deployment
+
+### Complete iOS Pipeline
+The VitalLens multi-modal model supports complete mobile deployment with optimization:
+
+```bash
+# Complete deployment pipeline
+python scripts/deploy_mobile.py \
+    --checkpoint best_model.pth \
+    --target-size-mb 20 \
+    --target-inference-ms 18 \
+    --enable-pruning \
+    --enable-quantization
+
+# Automated deployment
+./mobile_deployment/deploy_vitallens.sh modal path/to/checkpoint.pth
+```
+
+### Mobile Optimization Features
+- **Model Compression**: Pruning + Quantization (24.5M → <20MB)
+- **Performance Optimization**: <18ms inference on iPhone
+- **Multi-Modal Support**: Video + Audio + Eye-tracking
+- **Neural Engine**: Optimized for iOS hardware acceleration
+
+### iOS Integration
+- **Core ML Model**: `VitalLensMultiModal.mlmodel` (iOS 15+)
+- **Swift Framework**: Complete integration code provided
+- **Real-time Processing**: 30 FPS video processing
+- **Multi-Modal Outputs**: rPPG + Emotions + Gaze coordinates
+
+### Performance Targets
+- **Inference Time**: <18ms on iPhone (Neural Engine)
+- **Model Size**: <20MB (optimized from 24.5M parameters)
+- **Accuracy**: Maintains training performance after optimization
+- **Battery Usage**: Optimized for mobile power constraints
 
 ## Research Context
 

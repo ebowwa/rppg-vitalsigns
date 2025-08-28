@@ -1,0 +1,23 @@
+dataset_name,category,samples,features,source,priority,quality_score,multimodal_support,training_ready,emotion_classes,mapped_classes,has_images,has_text,has_gaze,has_coordinates,mobile_optimized,has_video,has_actions,human_focused,resource_url
+boltuix/emotions-dataset,emotions,131306,"Sentence, Label",huggingface,high,0.9,False,True,,,False,False,,,,,,,
+tukey/human_face_emotions_roboflow,emotions,9400,"image, qa",huggingface,medium,0.7,False,True,,,True,False,,,,,,,
+ChristophSchuhmann/emotions,emotions,211677,"url, similarity, id, caption",huggingface,high,0.9,False,True,,,False,True,,,,,,,
+HazemAbdelkawy/emotions,emotions,9400,"image, question, answer",huggingface,medium,0.7,False,True,,,True,False,,,,,,,
+AdamCodd/yolo-emotions,emotions,135591,image,huggingface,high,0.9,False,True,,,True,False,,,,,,,
+shiv213/Eye-tracking-and-Sentiment-Analysis-Dataset-II,eyetracking,994,"Text_ID, Text, Default_Polarity, Aspect, Source, Sarcasm, P1, P2, P3, P4, P5, P6, P7",huggingface,medium,0.6,False,True,,,,,False,False,False,,,,
+Bingsu/Human_Action_Recognition,behavioral,12600,"image, labels",huggingface,medium,0.7,False,True,,,,,,,,False,False,True,
+audio-emotion-part-1-explore-data,audio_emotion,unknown,notebook/code,kaggle,medium,0.7,True,False,,,,,,,,,,,https://www.kaggle.com/code/ejlok1/audio-emotion-part-1-explore-data
+audio-emotion-part-2-feature-extract,audio_emotion,unknown,notebook/code,kaggle,medium,0.7,True,False,,,,,,,,,,,https://www.kaggle.com/code/ejlok1/audio-emotion-part-2-feature-extract
+speech-emotion-recognition-97-25-accuracy,audio_emotion,unknown,notebook/code,kaggle,medium,0.7,True,False,,,,,,,,,,,https://www.kaggle.com/code/mostafaabdlhamed/speech-emotion-recognition-97-25-accuracy
+facial-emotions-detection,facial_emotion,unknown,notebook/code,kaggle,medium,0.7,False,False,,,,,,,,,,,https://www.kaggle.com/code/mh0386/facial-emotions-detection
+facial-expression-eda-cnn,facial_emotion,unknown,notebook/code,kaggle,medium,0.7,False,False,,,,,,,,,,,https://www.kaggle.com/code/drcapa/facial-expression-eda-cnn
+facial-expression-detection-cnn,facial_emotion,unknown,notebook/code,kaggle,medium,0.7,False,False,,,,,,,,,,,https://www.kaggle.com/code/shawon10/facial-expression-detection-cnn
+facial-emotion-recognition-using-cnn,facial_emotion,unknown,notebook/code,kaggle,medium,0.7,False,False,,,,,,,,,,,https://www.kaggle.com/code/muhammadfaizan65/facial-emotion-recognition-using-cnn
+emotion-detection-using-cnn,facial_emotion,unknown,notebook/code,kaggle,medium,0.7,False,False,,,,,,,,,,,https://www.kaggle.com/code/oykuer/emotion-detection-using-cnn
+face-emotions-image-detection-vit,facial_emotion,unknown,notebook/code,kaggle,medium,0.7,False,False,,,,,,,,,,,https://www.kaggle.com/code/dima806/face-emotions-image-detection-vit
+human-emotion-dataset-prediction-using-tensorlow,facial_emotion,unknown,notebook/code,kaggle,medium,0.7,False,False,,,,,,,,,,,https://www.kaggle.com/code/chanchal24/human-emotion-dataset-prediction-using-tensorlow
+detect-human-emotions-through-cnn-modeling,facial_emotion,unknown,notebook/code,kaggle,medium,0.7,False,False,,,,,,,,,,,https://www.kaggle.com/code/karamalhanatleh/detect-human-emotions-through-cnn-modeling
+opencv-classification-of-emotions,facial_emotion,unknown,notebook/code,kaggle,medium,0.7,False,False,,,,,,,,,,,https://www.kaggle.com/code/juniorbueno/opencv-classification-of-emotions
+detecting-human-emotions-yolov5-efnet-b0,facial_emotion,unknown,notebook/code,kaggle,medium,0.7,False,False,,,,,,,,,,,https://www.kaggle.com/code/saworz/detecting-human-emotions-yolov5-efnet-b0
+taylor-swift-emotions-over-the-years,multimodal,unknown,notebook/code,kaggle,medium,0.7,True,False,,,,,,,,,,,https://www.kaggle.com/code/promptcloud/taylor-swift-emotions-over-the-years
+emotionsclassifier-huggingface-bert,multimodal,unknown,notebook/code,kaggle,medium,0.7,True,False,,,,,,,,,,,https://www.kaggle.com/code/paddytheprogrammer/emotionsclassifier-huggingface-bert

@@ -23,7 +23,8 @@ class VitalLensEmotionModel(nn.Module):
         self.temporal_conv3 = nn.Conv1d(256, 128, kernel_size=3, padding=1)
         
         self.lstm = nn.LSTM(128, 64, batch_first=True, bidirectional=True)
-        self.attention = nn.MultiheadAttention(128, num_heads=8, batch_first=True)
+        self.attention_weights = nn.Linear(128, 1)
+        self.attention_dropout = nn.Dropout(dropout_rate)
         
         self.pulse_head = nn.Sequential(
             nn.Linear(128, 64),
@@ -119,8 +120,10 @@ class VitalLensEmotionModel(nn.Module):
         x = x.transpose(1, 2)
         
         lstm_out, _ = self.lstm(x)
-        attn_out, _ = self.attention(lstm_out, lstm_out, lstm_out)
-        global_features = torch.mean(attn_out, dim=1)
+        attention_scores = torch.softmax(self.attention_weights(lstm_out).squeeze(-1), dim=1)
+        attention_scores = self.attention_dropout(attention_scores)
+        attn_out = torch.sum(lstm_out * attention_scores.unsqueeze(-1), dim=1)
+        global_features = attn_out
         
         pulse_waveform = self.pulse_head(global_features)
         resp_waveform = self.respiration_head(global_features)
@@ -163,4 +166,16 @@ class VitalLensEmotionModel(nn.Module):
                 fused_emotion = self.fused_emotion_head(fused_output)
                 outputs['fused_emotion_logits'] = fused_emotion
         
-        return outputs
+        if self.enable_audio and self.enable_eyetracking:
+            return (pulse_waveform, resp_waveform, heart_rate, resp_rate, 
+                   emotion_logits, outputs.get('audio_emotion_logits'), 
+                   outputs.get('eyetrack_coordinates'), outputs.get('fused_emotion_logits'))
+        elif self.enable_audio:
+            return (pulse_waveform, resp_waveform, heart_rate, resp_rate, 
+                   emotion_logits, outputs.get('audio_emotion_logits'), outputs.get('fused_emotion_logits'))
+        elif self.enable_eyetracking:
+            return (pulse_waveform, resp_waveform, heart_rate, resp_rate, 
+                   emotion_logits, outputs.get('eyetrack_coordinates'), outputs.get('fused_emotion_logits'))
+        else:
+            return (pulse_waveform, resp_waveform, heart_rate, resp_rate, 
+                   emotion_logits, outputs.get('fused_emotion_logits'))

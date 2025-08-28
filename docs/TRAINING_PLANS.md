@@ -338,4 +338,80 @@ All plans include comprehensive Weights & Biases logging:
 - **RunPod RTX 4090**: Cost-effective for longer training runs
 - **RunPod A6000**: Good balance of memory and cost
 
+## 11. Complete Mobile Deployment Pipeline
+
+### End-to-End Automation
+- **One-Command Deployment**: `./deploy_vitallens.sh modal path/to/checkpoint.pth`
+- **Training → Core ML → iOS**: Complete automation from GPU training to mobile deployment
+- **Performance Optimization**: Pruning, quantization, knowledge distillation
+- **Target Metrics**: <18ms inference, <20MB model size
+
+### Platform Integration
+```bash
+# Complete pipeline with Modal
+python scripts/train_and_deploy.py --platform modal --epochs 50
+
+# Complete pipeline with RunPod  
+python scripts/train_and_deploy.py --platform runpod --epochs 50
+
+# Manual deployment only
+python scripts/deploy_mobile.py --checkpoint best_model.pth --enable-pruning --enable-quantization
+```
+
+### Mobile Optimization Techniques
+- **Pruning**: Remove 30-50% of parameters using structured pruning
+- **Quantization**: INT8 dynamic quantization for 4x memory reduction
+- **Knowledge Distillation**: Optional student model with EfficientNet-B0
+- **Core ML Optimization**: Neural Engine utilization, compute unit selection
+
+### iOS Integration Features
+- **Multi-Modal Processing**: Video + Audio + Eye-tracking inputs
+- **Real-time Inference**: 30 FPS video processing capability
+- **Comprehensive Outputs**: rPPG + Emotions + Gaze coordinates
+- **Swift Framework**: Ready-to-use iOS integration code
+
+### Performance Benchmarks
+- **Model Size**: 24.5M → <20MB (optimized)
+- **Inference Time**: <18ms on iPhone (Neural Engine)
+- **Accuracy Preservation**: Maintain training performance after optimization
+- **Battery Efficiency**: Optimized for mobile power constraints
+
+### Deployment Automation Features
+- **Budget Tracking**: Monitor Modal ($500) and RunPod ($200) credits
+- **Cost Estimation**: Predict training costs before execution
+- **Model Validation**: Automatic size and performance checking
+- **iOS Project Template**: Ready-to-use Xcode integration
+
+## 12. Rich Dataset Collection Strategy
+
+### Comprehensive Dataset Integration
+- **HuggingFace Datasets**: 15+ emotion, rPPG, eye-tracking datasets
+- **Kaggle Resources**: 15+ notebooks with advanced techniques
+- **Multi-Modal Coverage**: Video + Audio + Text + Behavioral data
+- **Quality Assessment**: Automated dataset scoring and prioritization
+
+### Dataset Categories
+```bash
+# Download and analyze all datasets
+python scripts/create_rich_dataset.py --download-all
+
+# Filter by priority
+python scripts/create_rich_dataset.py --priority high --category emotions
+
+# Generate comprehensive report
+python scripts/create_rich_dataset.py --output-dir ./rich_datasets
+```
+
+### Training Strategy Based on Dataset Analysis
+- **Phase 1**: rPPG foundation (MCD dataset, 600 subjects)
+- **Phase 2**: Visual emotions (YOLO emotions, 155K samples)
+- **Phase 3**: Audio integration (Kaggle speech emotion techniques)
+- **Phase 4**: Multi-modal fusion (Eye-tracking + behavioral data)
+
+### Budget Optimization
+- **Dataset Priority Scoring**: Focus budget on highest-quality datasets
+- **Progressive Training**: Start with core capabilities, expand incrementally
+- **Cost Estimation**: Predict training costs based on dataset size and complexity
+- **Platform Selection**: Modal for large datasets, RunPod for experimentation
+
 Choose the plan that best fits your specific requirements, timeline, and research goals. Each plan is designed to maximize the intelligence and capabilities of the VitalLens system while staying within the allocated budget.
