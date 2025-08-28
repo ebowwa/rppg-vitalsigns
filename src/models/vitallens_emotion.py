@@ -166,16 +166,4 @@ class VitalLensEmotionModel(nn.Module):
                 fused_emotion = self.fused_emotion_head(fused_output)
                 outputs['fused_emotion_logits'] = fused_emotion
         
-        if self.enable_audio and self.enable_eyetracking:
-            return (pulse_waveform, resp_waveform, heart_rate, resp_rate, 
-                   emotion_logits, outputs.get('audio_emotion_logits'), 
-                   outputs.get('eyetrack_coordinates'), outputs.get('fused_emotion_logits'))
-        elif self.enable_audio:
-            return (pulse_waveform, resp_waveform, heart_rate, resp_rate, 
-                   emotion_logits, outputs.get('audio_emotion_logits'), outputs.get('fused_emotion_logits'))
-        elif self.enable_eyetracking:
-            return (pulse_waveform, resp_waveform, heart_rate, resp_rate, 
-                   emotion_logits, outputs.get('eyetrack_coordinates'), outputs.get('fused_emotion_logits'))
-        else:
-            return (pulse_waveform, resp_waveform, heart_rate, resp_rate, 
-                   emotion_logits, outputs.get('fused_emotion_logits'))
+        return outputs
