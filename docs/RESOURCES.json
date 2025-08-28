@@ -1,0 +1,261 @@
+{
+  "project_name": "VitalLens Multi-Modal rPPG & Emotion Detection",
+  "description": "Comprehensive collection of datasets and resources for multi-modal physiological and emotional intelligence",
+  "datasets": {
+    "huggingface": {
+      "emotion_detection": [
+        {
+          "name": "boltuix/emotions-dataset",
+          "url": "https://huggingface.co/datasets/boltuix/emotions-dataset",
+          "description": "Emotion classification dataset",
+          "modality": "image"
+        },
+        {
+          "name": "tukey/human_face_emotions_roboflow",
+          "url": "https://huggingface.co/datasets/tukey/human_face_emotions_roboflow",
+          "description": "Human face emotions from Roboflow",
+          "modality": "image"
+        },
+        {
+          "name": "ChristophSchuhmann/emotions",
+          "url": "https://huggingface.co/datasets/ChristophSchuhmann/emotions",
+          "description": "212k+ image-text pairs for emotion analysis",
+          "samples": "212000+",
+          "modality": "image_text"
+        },
+        {
+          "name": "juanbtbx/Human-Group-Emotions-Labelled",
+          "url": "https://huggingface.co/datasets/juanbtbx/Human-Group-Emotions-Labelled",
+          "description": "162 manually annotated images with detailed bounding box information and emotion labels across seven emotion categories",
+          "samples": "162",
+          "modality": "image",
+          "features": "bounding_boxes"
+        },
+        {
+          "name": "HazemAbdelkawy/emotions",
+          "url": "https://huggingface.co/datasets/HazemAbdelkawy/emotions",
+          "description": "9.4k images with 8 emotion classes including 'content'",
+          "samples": "9400",
+          "classes": 8,
+          "modality": "image"
+        },
+        {
+          "name": "AdamCodd/yolo-emotions",
+          "url": "https://huggingface.co/datasets/AdamCodd/yolo-emotions",
+          "description": "155K samples with 7 emotion classes in YOLO format, merged from ExpW, FER2013+, AffectNet, RAF-DB",
+          "samples": "155000",
+          "classes": 7,
+          "format": "YOLO",
+          "modality": "image",
+          "features": "bounding_boxes",
+          "source_datasets": ["ExpW", "FER2013+", "AffectNet", "RAF-DB"]
+        }
+      ],
+      "eye_tracking": [
+        {
+          "name": "julienmercier/eyetracking",
+          "url": "https://huggingface.co/datasets/julienmercier/eyetracking",
+          "description": "Eye-tracking dataset for gaze analysis",
+          "modality": "gaze"
+        },
+        {
+          "name": "julienmercier/mobile-eye-tracking-dataset-v3",
+          "url": "https://huggingface.co/datasets/julienmercier/mobile-eye-tracking-dataset-v3",
+          "description": "Mobile eye-tracking dataset version 3",
+          "modality": "gaze"
+        },
+        {
+          "name": "shiv213/Eye-tracking-and-Sentiment-Analysis-Dataset-II",
+          "url": "https://huggingface.co/datasets/shiv213/Eye-tracking-and-Sentiment-Analysis-Dataset-II",
+          "description": "Eye-tracking combined with sentiment analysis",
+          "modality": "gaze_sentiment"
+        },
+        {
+          "name": "Wangtwohappy/EgoLife_EyeTracking_EyeGaze",
+          "url": "https://huggingface.co/datasets/Wangtwohappy/EgoLife_EyeTracking_EyeGaze",
+          "description": "Egocentric life eye-tracking and gaze dataset",
+          "modality": "gaze"
+        }
+      ],
+      "physiological": [
+        {
+          "name": "kyegorov/mcd_rppg",
+          "url": "https://huggingface.co/datasets/kyegorov/mcd_rppg",
+          "description": "MCD rPPG dataset with 3600 recordings from 600 subjects with multi-camera physiological data",
+          "samples": "3600",
+          "subjects": "600",
+          "modality": "video_physiological"
+        }
+      ],
+      "human_action": [
+        {
+          "name": "facebook/PLM-Video-Human",
+          "url": "https://huggingface.co/datasets/facebook/PLM-Video-Human",
+          "description": "Facebook PLM Video Human dataset for behavioral analysis",
+          "modality": "video"
+        },
+        {
+          "name": "Bingsu/Human_Action_Recognition",
+          "url": "https://huggingface.co/datasets/Bingsu/Human_Action_Recognition",
+          "description": "Human action recognition dataset for behavioral insights",
+          "modality": "video"
+        }
+      ]
+    },
+    "kaggle": {
+      "audio_emotion": [
+        {
+          "title": "Audio Emotion Part 1: Explore Data",
+          "url": "https://www.kaggle.com/code/ejlok1/audio-emotion-part-1-explore-data",
+          "description": "Audio emotion analysis exploration",
+          "modality": "audio"
+        },
+        {
+          "title": "Audio Emotion Part 2: Feature Extract",
+          "url": "https://www.kaggle.com/code/ejlok1/audio-emotion-part-2-feature-extract",
+          "description": "Audio feature extraction techniques for emotion detection",
+          "modality": "audio",
+          "techniques": ["MFCC", "spectrograms"]
+        },
+        {
+          "title": "Speech Emotion Recognition 97.25% Accuracy",
+          "url": "https://www.kaggle.com/code/mostafaabdlhamed/speech-emotion-recognition-97-25-accuracy",
+          "description": "High-accuracy speech emotion recognition techniques",
+          "accuracy": "97.25%",
+          "modality": "audio"
+        }
+      ],
+      "facial_emotion": [
+        {
+          "title": "Taylor Swift Emotions Over the Years",
+          "url": "https://www.kaggle.com/code/promptcloud/taylor-swift-emotions-over-the-years",
+          "description": "Temporal emotion analysis case study",
+          "modality": "image"
+        },
+        {
+          "title": "Facial Expression EDA CNN",
+          "url": "https://www.kaggle.com/code/drcapa/facial-expression-eda-cnn",
+          "description": "CNN-based facial expression analysis",
+          "architecture": "CNN",
+          "modality": "image"
+        },
+        {
+          "title": "Emotions Classifier HuggingFace BERT",
+          "url": "https://www.kaggle.com/code/paddytheprogrammer/emotionsclassifier-huggingface-bert",
+          "description": "BERT-based emotion classification",
+          "architecture": "BERT",
+          "modality": "text"
+        },
+        {
+          "title": "Facial Expression Detection CNN",
+          "url": "https://www.kaggle.com/code/shawon10/facial-expression-detection-cnn",
+          "description": "CNN for facial expression detection",
+          "architecture": "CNN",
+          "modality": "image"
+        },
+        {
+          "title": "Facial Emotion Recognition using CNN",
+          "url": "https://www.kaggle.com/code/muhammadfaizan65/facial-emotion-recognition-using-cnn",
+          "description": "CNN-based facial emotion recognition",
+          "architecture": "CNN",
+          "modality": "image"
+        },
+        {
+          "title": "Emotion Detection using CNN",
+          "url": "https://www.kaggle.com/code/oykuer/emotion-detection-using-cnn",
+          "description": "General emotion detection with CNN",
+          "architecture": "CNN",
+          "modality": "image"
+        },
+        {
+          "title": "Face Emotions Image Detection ViT",
+          "url": "https://www.kaggle.com/code/dima806/face-emotions-image-detection-vit",
+          "description": "Vision Transformer for emotion detection",
+          "architecture": "ViT",
+          "modality": "image"
+        },
+        {
+          "title": "Human Emotion Dataset Prediction using TensorFlow",
+          "url": "https://www.kaggle.com/code/chanchal24/human-emotion-dataset-prediction-using-tensorlow",
+          "description": "TensorFlow-based emotion prediction",
+          "framework": "TensorFlow",
+          "modality": "image"
+        },
+        {
+          "title": "Detect Human Emotions through CNN Modeling",
+          "url": "https://www.kaggle.com/code/karamalhanatleh/detect-human-emotions-through-cnn-modeling",
+          "description": "CNN modeling for human emotion detection",
+          "architecture": "CNN",
+          "modality": "image"
+        },
+        {
+          "title": "OpenCV Classification of Emotions",
+          "url": "https://www.kaggle.com/code/juniorbueno/opencv-classification-of-emotions",
+          "description": "OpenCV-based emotion classification",
+          "framework": "OpenCV",
+          "modality": "image"
+        },
+        {
+          "title": "Detecting Human Emotions YOLOv5 EfNet B0",
+          "url": "https://www.kaggle.com/code/saworz/detecting-human-emotions-yolov5-efnet-b0",
+          "description": "YOLOv5 + EfficientNet B0 for emotion detection",
+          "architecture": ["YOLOv5", "EfficientNet-B0"],
+          "modality": "image"
+        }
+      ]
+    }
+  },
+  "techniques_summary": {
+    "architectures": [
+      "EfficientNetV2-S",
+      "CNN",
+      "Vision Transformer (ViT)",
+      "BERT",
+      "YOLOv5",
+      "EfficientNet-B0"
+    ],
+    "audio_processing": [
+      "MFCC (Mel-Frequency Cepstral Coefficients)",
+      "Mel-spectrograms",
+      "Audio feature extraction",
+      "Speech emotion recognition"
+    ],
+    "modalities": [
+      "Video (rPPG)",
+      "Image (facial emotions)",
+      "Audio (speech emotions)",
+      "Eye-tracking (gaze patterns)",
+      "Text (emotion classification)"
+    ],
+    "fusion_strategies": [
+      "Late fusion",
+      "Multi-modal attention",
+      "Cross-modal consistency",
+      "Progressive training"
+    ]
+  },
+  "performance_targets": {
+    "rppg": {
+      "hr_mae": "<1.0 BPM",
+      "rr_mae": "<1.0 BPM",
+      "pulse_snr": ">8 dB"
+    },
+    "emotion": {
+      "visual_accuracy": ">75%",
+      "audio_accuracy": ">70%",
+      "speech_accuracy": "97.25% (benchmark)"
+    },
+    "eye_tracking": {
+      "gaze_accuracy": "2-3 degrees"
+    }
+  },
+  "training_budget": {
+    "modal_credits": "$500",
+    "runpod_credits": "$200",
+    "total_budget": "$700",
+    "estimated_costs": {
+      "modal_a100": "$16-32",
+      "runpod_rtx4090": "$10"
+    }
+  }
+}
