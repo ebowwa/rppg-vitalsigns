@@ -29,9 +29,12 @@ rppg-vitalsigns/
 
 ## Key Features
 
+- **Multi-task Learning**: Combined rPPG vital signs estimation and emotion detection
+- **VitalLens Architecture**: EfficientNetV2-based model with temporal processing and attention
 - **Multiple Methods**: Implementation of classical (G, CHROM, POS) and learning-based (DeepPhys, MTTS-CAN) approaches
-- **Dataset Support**: Loaders for UBFC-rPPG, PURE, VIPL-HR, SCAMPS, and more
-- **Evaluation**: Comprehensive metrics including MAE, SNR, and Pearson correlation
+- **Dataset Support**: Loaders for UBFC-rPPG, PURE, VIPL-HR, SCAMPS, and FER2013 emotion dataset
+- **Cloud Training**: Ready-to-use scripts for Modal and RunPod GPU training
+- **Evaluation**: Comprehensive metrics including MAE, SNR, Pearson correlation, and emotion accuracy
 - **Real-time Processing**: Optimized for live video inference
 
 ## Performance Benchmarks
@@ -73,16 +76,60 @@ pip install -r requirements.txt
 
 ## Quick Start
 
+### Training with Modal (Recommended for experimentation)
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Download FER2013 emotion dataset (requires Kaggle API setup)
+python scripts/download_fer2013.py
+
+# Train on Modal with GPU
+python scripts/train_modal.py
+```
+
+### Training with RunPod (Recommended for longer training runs)
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Download FER2013 emotion dataset (requires Kaggle API setup)
+python scripts/download_fer2013.py
+
+# Train on RunPod
+python scripts/train_runpod.py
+```
+
+### Evaluation
+
+```bash
+# Evaluate trained model
+python scripts/evaluate.py --model_path best_model.pth
+```
+
+### Example Usage
+
 ```python
-# Example usage (to be implemented)
-from src.models import VitalEstimator
+# Example usage for rPPG + emotion detection
+from src.models.vitallens_emotion import VitalLensEmotionModel
+import torch
 
-# Initialize estimator
-estimator = VitalEstimator(method='chrom')
+# Initialize model
+model = VitalLensEmotionModel(sequence_length=150, num_emotions=7)
 
-# Process video
-hr, rr = estimator.process_video('path/to/video.mp4')
-print(f"Heart Rate: {hr} bpm, Respiratory Rate: {rr} bpm")
+# Load trained weights
+checkpoint = torch.load('best_model.pth')
+model.load_state_dict(checkpoint['model_state_dict'])
+
+# Process video sequence (batch_size, sequence_length, channels, height, width)
+video_input = torch.randn(1, 150, 3, 224, 224)
+outputs = model(video_input)
+
+print(f"Heart Rate: {outputs['heart_rate'].item():.1f} bpm")
+print(f"Respiratory Rate: {outputs['resp_rate'].item():.1f} bpm")
+print(f"Emotion: {torch.argmax(outputs['emotion_logits'], dim=1).item()}")
 ```
 
 ## Research Context
