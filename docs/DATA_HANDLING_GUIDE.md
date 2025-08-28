@@ -105,7 +105,7 @@ For Kaggle datasets, the pipeline uses the Kaggle API:
 # Setup Kaggle API credentials first
 # Place kaggle.json in ~/.kaggle/ or set KAGGLE_USERNAME/KAGGLE_KEY
 
-from scripts.create_rich_dataset import KaggleDatasetDownloader
+from src.data.kaggle_downloader import KaggleDatasetDownloader
 
 downloader = KaggleDatasetDownloader()
 
