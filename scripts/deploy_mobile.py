@@ -106,13 +106,34 @@ class MobileDeploymentPipeline:
         """Convert optimized model to Core ML format"""
         print("🍎 Converting to Core ML...")
         
+        class CoreMLCompatibleWrapper(torch.nn.Module):
+            def __init__(self, vitallens_model):
+                super().__init__()
+                self.model = vitallens_model
+                
+            def forward(self, video_frames, audio_features=None, eyetrack_features=None):
+                outputs = self.model(video_frames, audio_features, eyetrack_features)
+                return (
+                    outputs['pulse_waveform'],
+                    outputs['resp_waveform'], 
+                    outputs['heart_rate'],
+                    outputs['resp_rate'],
+                    outputs['emotion_logits'],
+                    outputs.get('audio_emotion_logits', torch.zeros(1, 7)),
+                    outputs.get('eyetrack_coordinates', torch.zeros(1, 2)),
+                    outputs.get('fused_emotion_logits', outputs['emotion_logits'])
+                )
+        
+        wrapper_model = CoreMLCompatibleWrapper(model)
+        wrapper_model.eval()
+        
         dummy_video = torch.randn(1, 150, 3, 224, 224)
         dummy_audio = torch.randn(1, 1, 128, 128) if model.enable_audio else None
         dummy_eyetrack = torch.randn(1, 2) if model.enable_eyetracking else None
         
-        # Trace the model with strict=False to handle tuple outputs
+        # Trace the wrapper model
         with torch.no_grad():
-            traced_model = torch.jit.trace(model, (dummy_video, dummy_audio, dummy_eyetrack), strict=False)
+            traced_model = torch.jit.trace(wrapper_model, (dummy_video, dummy_audio, dummy_eyetrack), strict=False)
         
         # Convert to Core ML
         coreml_model = ct.convert(
