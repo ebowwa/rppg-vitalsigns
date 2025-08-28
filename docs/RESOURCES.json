@@ -1,80 +1,171 @@
 {
   "project_name": "VitalLens Multi-Modal rPPG & Emotion Detection",
   "description": "Comprehensive collection of datasets and resources for multi-modal physiological and emotional intelligence",
+  "consolidation_info": {
+    "consolidated_date": "2025-08-28",
+    "source_files": [
+      "docs/RESOURCES.json",
+      "docs/INDIVIDUAL_DATASET_GUIDES.md", 
+      "rich_datasets/dataset_registry.json"
+    ],
+    "total_datasets": 22,
+    "redundancy_eliminated": true
+  },
   "datasets": {
     "huggingface": {
       "emotion_detection": [
         {
           "name": "boltuix/emotions-dataset",
           "url": "https://huggingface.co/datasets/boltuix/emotions-dataset",
-          "description": "Emotion classification dataset",
-          "modality": "image"
+          "description": "Text-based emotion classification dataset",
+          "samples": 131306,
+          "features": "Sentence, Label",
+          "classes": 13,
+          "modality": "text",
+          "priority": "high",
+          "quality_score": 0.9,
+          "multimodal_support": false,
+          "training_ready": true,
+          "has_images": false,
+          "has_text": true,
+          "loading_pattern": "huggingface_text_emotions"
         },
         {
           "name": "tukey/human_face_emotions_roboflow",
           "url": "https://huggingface.co/datasets/tukey/human_face_emotions_roboflow",
-          "description": "Human face emotions from Roboflow",
-          "modality": "image"
+          "description": "Human face emotions from Roboflow with bounding box annotations",
+          "samples": 9400,
+          "features": "image, qa",
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": true,
+          "has_images": true,
+          "has_text": false,
+          "loading_pattern": "roboflow_emotions"
         },
         {
           "name": "ChristophSchuhmann/emotions",
           "url": "https://huggingface.co/datasets/ChristophSchuhmann/emotions",
-          "description": "212k+ image-text pairs for emotion analysis",
-          "samples": "212000+",
-          "modality": "image_text"
+          "description": "212k+ image-text pairs for emotion analysis with similarity scores",
+          "samples": 211677,
+          "features": "url, similarity, id, caption",
+          "modality": "image_text",
+          "priority": "high",
+          "quality_score": 0.9,
+          "multimodal_support": true,
+          "training_ready": true,
+          "has_images": true,
+          "has_text": true,
+          "loading_pattern": "image_text_emotions"
         },
         {
           "name": "juanbtbx/Human-Group-Emotions-Labelled",
           "url": "https://huggingface.co/datasets/juanbtbx/Human-Group-Emotions-Labelled",
           "description": "162 manually annotated images with detailed bounding box information and emotion labels across seven emotion categories",
-          "samples": "162",
+          "samples": 162,
           "modality": "image",
-          "features": "bounding_boxes"
+          "features": "bounding_boxes",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": true,
+          "has_images": true,
+          "has_text": false,
+          "loading_pattern": "group_emotions"
         },
         {
           "name": "HazemAbdelkawy/emotions",
           "url": "https://huggingface.co/datasets/HazemAbdelkawy/emotions",
-          "description": "9.4k images with 8 emotion classes including 'content'",
-          "samples": "9400",
+          "description": "9.4k images with 8 emotion classes including unique 'content' class",
+          "samples": 9400,
+          "features": "image, question, answer",
           "classes": 8,
-          "modality": "image"
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": true,
+          "has_images": true,
+          "has_text": false,
+          "loading_pattern": "content_emotions"
         },
         {
           "name": "AdamCodd/yolo-emotions",
           "url": "https://huggingface.co/datasets/AdamCodd/yolo-emotions",
           "description": "155K samples with 7 emotion classes in YOLO format, merged from ExpW, FER2013+, AffectNet, RAF-DB",
-          "samples": "155000",
+          "samples": 155591,
+          "features": "image",
           "classes": 7,
           "format": "YOLO",
           "modality": "image",
-          "features": "bounding_boxes",
-          "source_datasets": ["ExpW", "FER2013+", "AffectNet", "RAF-DB"]
+          "features_detail": "bounding_boxes",
+          "source_datasets": ["ExpW", "FER2013+", "AffectNet", "RAF-DB"],
+          "priority": "high",
+          "quality_score": 0.9,
+          "multimodal_support": false,
+          "training_ready": true,
+          "has_images": true,
+          "has_text": false,
+          "loading_pattern": "yolo_emotions"
         }
       ],
       "eye_tracking": [
         {
           "name": "julienmercier/eyetracking",
           "url": "https://huggingface.co/datasets/julienmercier/eyetracking",
-          "description": "Eye-tracking dataset for gaze analysis",
-          "modality": "gaze"
+          "description": "Basic eye-tracking dataset for gaze analysis",
+          "modality": "gaze",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": true,
+          "training_ready": true,
+          "has_gaze": true,
+          "has_coordinates": true,
+          "loading_pattern": "basic_eyetracking"
         },
         {
           "name": "julienmercier/mobile-eye-tracking-dataset-v3",
           "url": "https://huggingface.co/datasets/julienmercier/mobile-eye-tracking-dataset-v3",
-          "description": "Mobile eye-tracking dataset version 3",
-          "modality": "gaze"
+          "description": "Mobile eye-tracking dataset version 3 with enhanced features",
+          "modality": "gaze",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": true,
+          "training_ready": true,
+          "has_gaze": true,
+          "has_coordinates": true,
+          "mobile_optimized": true,
+          "loading_pattern": "mobile_eyetracking"
         },
         {
           "name": "shiv213/Eye-tracking-and-Sentiment-Analysis-Dataset-II",
           "url": "https://huggingface.co/datasets/shiv213/Eye-tracking-and-Sentiment-Analysis-Dataset-II",
-          "description": "Eye-tracking combined with sentiment analysis",
-          "modality": "gaze_sentiment"
+          "description": "Eye-tracking combined with sentiment analysis for multi-modal insights",
+          "samples": 994,
+          "features": "Text_ID, Text, Default_Polarity, Aspect, Source, Sarcasm, P1, P2, P3, P4, P5, P6, P7",
+          "modality": "gaze_sentiment",
+          "priority": "high",
+          "quality_score": 0.8,
+          "multimodal_support": true,
+          "training_ready": true,
+          "has_gaze": true,
+          "has_text": true,
+          "loading_pattern": "eyetracking_sentiment"
         },
         {
           "name": "Wangtwohappy/EgoLife_EyeTracking_EyeGaze",
           "url": "https://huggingface.co/datasets/Wangtwohappy/EgoLife_EyeTracking_EyeGaze",
-          "description": "Egocentric life eye-tracking and gaze dataset",
-          "modality": "gaze"
+          "description": "Egocentric life eye-tracking and gaze dataset for behavioral analysis",
+          "modality": "gaze",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": true,
+          "training_ready": true,
+          "has_gaze": true,
+          "has_coordinates": true,
+          "loading_pattern": "egocentric_eyetracking"
         }
       ],
       "physiological": [
@@ -82,9 +173,15 @@
           "name": "kyegorov/mcd_rppg",
           "url": "https://huggingface.co/datasets/kyegorov/mcd_rppg",
           "description": "MCD rPPG dataset with 3600 recordings from 600 subjects with multi-camera physiological data",
-          "samples": "3600",
-          "subjects": "600",
-          "modality": "video_physiological"
+          "samples": 3600,
+          "subjects": 600,
+          "modality": "video_physiological",
+          "priority": "high",
+          "quality_score": 0.9,
+          "multimodal_support": true,
+          "training_ready": true,
+          "has_video": true,
+          "loading_pattern": "mcd_rppg"
         }
       ],
       "human_action": [
@@ -92,117 +189,302 @@
           "name": "facebook/PLM-Video-Human",
           "url": "https://huggingface.co/datasets/facebook/PLM-Video-Human",
           "description": "Facebook PLM Video Human dataset for behavioral analysis",
-          "modality": "video"
+          "modality": "video",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": true,
+          "training_ready": true,
+          "has_video": true,
+          "has_actions": true,
+          "human_focused": true,
+          "loading_pattern": "plm_video_human"
         },
         {
           "name": "Bingsu/Human_Action_Recognition",
           "url": "https://huggingface.co/datasets/Bingsu/Human_Action_Recognition",
           "description": "Human action recognition dataset for behavioral insights",
-          "modality": "video"
+          "samples": 12600,
+          "features": "image, labels",
+          "modality": "video",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": true,
+          "has_video": false,
+          "has_actions": false,
+          "human_focused": true,
+          "loading_pattern": "human_action_recognition"
         }
       ]
     },
     "kaggle": {
       "audio_emotion": [
         {
+          "name": "audio-emotion-part-1-explore-data",
           "title": "Audio Emotion Part 1: Explore Data",
           "url": "https://www.kaggle.com/code/ejlok1/audio-emotion-part-1-explore-data",
-          "description": "Audio emotion analysis exploration",
-          "modality": "audio"
+          "description": "Audio emotion analysis exploration with waveform analysis and spectral features",
+          "modality": "audio",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": true,
+          "training_ready": false,
+          "techniques": ["waveform_analysis", "spectral_features", "emotion_distribution"],
+          "loading_pattern": "audio_emotion_exploration"
         },
         {
+          "name": "audio-emotion-part-2-feature-extract",
           "title": "Audio Emotion Part 2: Feature Extract",
           "url": "https://www.kaggle.com/code/ejlok1/audio-emotion-part-2-feature-extract",
-          "description": "Audio feature extraction techniques for emotion detection",
+          "description": "Advanced audio feature extraction techniques for emotion detection",
           "modality": "audio",
-          "techniques": ["MFCC", "spectrograms"]
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": true,
+          "training_ready": false,
+          "techniques": ["MFCC", "spectrograms", "temporal_dynamics"],
+          "loading_pattern": "audio_feature_extraction"
         },
         {
+          "name": "speech-emotion-recognition-97-25-accuracy",
           "title": "Speech Emotion Recognition 97.25% Accuracy",
           "url": "https://www.kaggle.com/code/mostafaabdlhamed/speech-emotion-recognition-97-25-accuracy",
-          "description": "High-accuracy speech emotion recognition techniques",
+          "description": "High-accuracy speech emotion recognition with deep learning approaches",
           "accuracy": "97.25%",
-          "modality": "audio"
+          "modality": "audio",
+          "priority": "high",
+          "quality_score": 0.9,
+          "multimodal_support": true,
+          "training_ready": false,
+          "techniques": ["deep_learning", "feature_engineering"],
+          "loading_pattern": "speech_emotion_recognition"
         }
       ],
       "facial_emotion": [
         {
-          "title": "Taylor Swift Emotions Over the Years",
-          "url": "https://www.kaggle.com/code/promptcloud/taylor-swift-emotions-over-the-years",
-          "description": "Temporal emotion analysis case study",
-          "modality": "image"
+          "name": "facial-emotions-detection",
+          "title": "Facial Emotions Detection",
+          "url": "https://www.kaggle.com/code/mh0386/facial-emotions-detection",
+          "description": "CNN-based facial emotion recognition with data augmentation",
+          "architecture": "CNN",
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": false,
+          "loading_pattern": "facial_emotion_cnn"
         },
         {
+          "name": "facial-expression-eda-cnn",
           "title": "Facial Expression EDA CNN",
           "url": "https://www.kaggle.com/code/drcapa/facial-expression-eda-cnn",
-          "description": "CNN-based facial expression analysis",
+          "description": "Exploratory data analysis and CNN implementation for facial expressions",
           "architecture": "CNN",
-          "modality": "image"
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": false,
+          "loading_pattern": "facial_expression_eda"
         },
         {
-          "title": "Emotions Classifier HuggingFace BERT",
-          "url": "https://www.kaggle.com/code/paddytheprogrammer/emotionsclassifier-huggingface-bert",
-          "description": "BERT-based emotion classification",
-          "architecture": "BERT",
-          "modality": "text"
-        },
-        {
+          "name": "facial-expression-detection-cnn",
           "title": "Facial Expression Detection CNN",
           "url": "https://www.kaggle.com/code/shawon10/facial-expression-detection-cnn",
-          "description": "CNN for facial expression detection",
+          "description": "CNN for facial expression detection with preprocessing techniques",
           "architecture": "CNN",
-          "modality": "image"
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": false,
+          "loading_pattern": "facial_expression_detection"
         },
         {
+          "name": "facial-emotion-recognition-using-cnn",
           "title": "Facial Emotion Recognition using CNN",
           "url": "https://www.kaggle.com/code/muhammadfaizan65/facial-emotion-recognition-using-cnn",
-          "description": "CNN-based facial emotion recognition",
+          "description": "CNN-based facial emotion recognition with optimization techniques",
           "architecture": "CNN",
-          "modality": "image"
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": false,
+          "loading_pattern": "facial_emotion_cnn_optimized"
         },
         {
+          "name": "emotion-detection-using-cnn",
           "title": "Emotion Detection using CNN",
           "url": "https://www.kaggle.com/code/oykuer/emotion-detection-using-cnn",
-          "description": "General emotion detection with CNN",
+          "description": "General emotion detection with CNN architecture",
           "architecture": "CNN",
-          "modality": "image"
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": false,
+          "loading_pattern": "general_emotion_cnn"
         },
         {
+          "name": "face-emotions-image-detection-vit",
           "title": "Face Emotions Image Detection ViT",
           "url": "https://www.kaggle.com/code/dima806/face-emotions-image-detection-vit",
-          "description": "Vision Transformer for emotion detection",
+          "description": "Vision Transformer approach for emotion detection",
           "architecture": "ViT",
-          "modality": "image"
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": false,
+          "loading_pattern": "emotion_detection_vit"
         },
         {
+          "name": "human-emotion-dataset-prediction-using-tensorlow",
           "title": "Human Emotion Dataset Prediction using TensorFlow",
           "url": "https://www.kaggle.com/code/chanchal24/human-emotion-dataset-prediction-using-tensorlow",
-          "description": "TensorFlow-based emotion prediction",
+          "description": "TensorFlow-based emotion prediction with optimization",
           "framework": "TensorFlow",
-          "modality": "image"
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": false,
+          "loading_pattern": "tensorflow_emotion_prediction"
         },
         {
+          "name": "detect-human-emotions-through-cnn-modeling",
           "title": "Detect Human Emotions through CNN Modeling",
           "url": "https://www.kaggle.com/code/karamalhanatleh/detect-human-emotions-through-cnn-modeling",
-          "description": "CNN modeling for human emotion detection",
+          "description": "CNN modeling for human emotion detection with advanced techniques",
           "architecture": "CNN",
-          "modality": "image"
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": false,
+          "loading_pattern": "advanced_cnn_emotion"
         },
         {
+          "name": "opencv-classification-of-emotions",
           "title": "OpenCV Classification of Emotions",
           "url": "https://www.kaggle.com/code/juniorbueno/opencv-classification-of-emotions",
-          "description": "OpenCV-based emotion classification",
+          "description": "OpenCV-based emotion classification with computer vision techniques",
           "framework": "OpenCV",
-          "modality": "image"
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": false,
+          "loading_pattern": "opencv_emotion_classification"
         },
         {
+          "name": "detecting-human-emotions-yolov5-efnet-b0",
           "title": "Detecting Human Emotions YOLOv5 EfNet B0",
           "url": "https://www.kaggle.com/code/saworz/detecting-human-emotions-yolov5-efnet-b0",
-          "description": "YOLOv5 + EfficientNet B0 for emotion detection",
+          "description": "YOLOv5 + EfficientNet B0 for emotion detection with object detection",
           "architecture": ["YOLOv5", "EfficientNet-B0"],
-          "modality": "image"
+          "modality": "image",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": false,
+          "training_ready": false,
+          "loading_pattern": "yolo_efficientnet_emotion"
+        }
+      ],
+      "multimodal": [
+        {
+          "name": "taylor-swift-emotions-over-the-years",
+          "title": "Taylor Swift Emotions Over the Years",
+          "url": "https://www.kaggle.com/code/promptcloud/taylor-swift-emotions-over-the-years",
+          "description": "Multi-modal emotion analysis combining text and image data over time",
+          "modality": "image_text",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": true,
+          "training_ready": false,
+          "loading_pattern": "temporal_multimodal_emotion"
+        },
+        {
+          "name": "emotionsclassifier-huggingface-bert",
+          "title": "Emotions Classifier HuggingFace BERT",
+          "url": "https://www.kaggle.com/code/paddytheprogrammer/emotionsclassifier-huggingface-bert",
+          "description": "BERT-based emotion classification with transformer architecture",
+          "architecture": "BERT",
+          "modality": "text",
+          "priority": "medium",
+          "quality_score": 0.7,
+          "multimodal_support": true,
+          "training_ready": false,
+          "loading_pattern": "bert_emotion_classification"
         }
       ]
+    },
+    "traditional_rppg": [
+      {
+        "name": "UBFC-rPPG",
+        "description": "University of Burgundy and Franche-Comté rPPG dataset",
+        "modality": "video_physiological",
+        "priority": "high",
+        "quality_score": 0.9,
+        "multimodal_support": false,
+        "training_ready": true,
+        "has_video": true,
+        "loading_pattern": "ubfc_rppg"
+      },
+      {
+        "name": "PURE",
+        "description": "Pulse Rate Detection dataset with controlled conditions",
+        "modality": "video_physiological", 
+        "priority": "high",
+        "quality_score": 0.9,
+        "multimodal_support": false,
+        "training_ready": true,
+        "has_video": true,
+        "loading_pattern": "pure_dataset"
+      },
+      {
+        "name": "COHFACE",
+        "description": "Contactless Heart Rate Measurement dataset",
+        "modality": "video_physiological",
+        "priority": "high", 
+        "quality_score": 0.9,
+        "multimodal_support": false,
+        "training_ready": true,
+        "has_video": true,
+        "loading_pattern": "cohface_dataset"
+      }
+    ]
+  },
+  "loading_patterns": {
+    "huggingface_text_emotions": {
+      "code": "from datasets import load_dataset\n\ndef load_text_emotions():\n    dataset = load_dataset('boltuix/emotions-dataset')\n    emotion_mapping = {\n        'happiness': 3, 'joy': 3, 'neutral': 4, 'sadness': 5,\n        'anger': 0, 'fear': 2, 'surprise': 6, 'disgust': 1\n    }\n    processed_data = []\n    for item in dataset['train']:\n        if item['label'] in emotion_mapping:\n            processed_data.append({\n                'text': item['sentence'],\n                'emotion_label': emotion_mapping[item['label']]\n            })\n    return processed_data"
+    },
+    "image_text_emotions": {
+      "code": "from datasets import load_dataset\nimport requests\nfrom PIL import Image\nfrom io import BytesIO\n\ndef load_image_text_emotions():\n    dataset = load_dataset('ChristophSchuhmann/emotions')\n    processed_data = []\n    for item in dataset['train']:\n        try:\n            response = requests.get(item['url'], timeout=10)\n            image = Image.open(BytesIO(response.content))\n            caption = item['caption'].lower()\n            emotion_label = extract_emotion_from_text(caption)\n            processed_data.append({\n                'image': image,\n                'caption': item['caption'],\n                'emotion_label': emotion_label,\n                'similarity': item['similarity']\n            })\n        except Exception as e:\n            continue\n    return processed_data"
+    },
+    "yolo_emotions": {
+      "code": "from datasets import load_dataset\nimport torch\nfrom PIL import Image\n\ndef load_yolo_emotions():\n    dataset = load_dataset('AdamCodd/yolo-emotions')\n    processed_data = []\n    for item in dataset['train']:\n        image = item['image']\n        if 'objects' in item:\n            for obj in item['objects']:\n                bbox = obj['bbox']\n                emotion_class = obj['category']\n                x, y, w, h = bbox\n                face_crop = image.crop((x, y, x+w, y+h))\n                processed_data.append({\n                    'image': face_crop,\n                    'emotion_label': emotion_class,\n                    'bbox': bbox,\n                    'full_image': image\n                })\n    return processed_data"
+    },
+    "mcd_rppg": {
+      "code": "from datasets import load_dataset\nimport cv2\nimport numpy as np\n\ndef load_mcd_rppg():\n    dataset = load_dataset('kyegorov/mcd_rppg')\n    processed_data = []\n    for item in dataset['train']:\n        video_path = item.get('video_path')\n        hr_ground_truth = item.get('heart_rate')\n        rr_ground_truth = item.get('respiratory_rate')\n        \n        cap = cv2.VideoCapture(video_path)\n        frames = []\n        while True:\n            ret, frame = cap.read()\n            if not ret:\n                break\n            frames.append(frame)\n        cap.release()\n        \n        sequence_length = 150\n        for i in range(0, len(frames) - sequence_length, sequence_length // 2):\n            frame_sequence = frames[i:i + sequence_length]\n            processed_data.append({\n                'video_frames': np.array(frame_sequence),\n                'heart_rate': hr_ground_truth,\n                'respiratory_rate': rr_ground_truth,\n                'subject_id': item.get('subject_id'),\n                'session_id': item.get('session_id')\n            })\n    return processed_data"
+    },
+    "audio_feature_extraction": {
+      "code": "import librosa\nimport numpy as np\n\ndef extract_audio_features(audio_path):\n    y, sr = librosa.load(audio_path, duration=3, offset=0.5)\n    mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)\n    mfcc_processed = np.mean(mfcc.T, axis=0)\n    chroma = np.mean(librosa.feature.chroma(y=y, sr=sr).T, axis=0)\n    mel = np.mean(librosa.feature.melspectrogram(y=y, sr=sr).T, axis=0)\n    contrast = np.mean(librosa.feature.spectral_contrast(y=y, sr=sr).T, axis=0)\n    tonnetz = np.mean(librosa.feature.tonnetz(y=librosa.effects.harmonic(y), sr=sr).T, axis=0)\n    features = np.hstack([mfcc_processed, chroma, mel, contrast, tonnetz])\n    return features"
+    },
+    "facial_emotion_cnn": {
+      "code": "import cv2\nimport numpy as np\nfrom tensorflow.keras.models import Sequential\nfrom tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Flatten\n\ndef create_facial_emotion_model():\n    model = Sequential([\n        Conv2D(32, (3, 3), activation='relu', input_shape=(48, 48, 1)),\n        Conv2D(64, (3, 3), activation='relu'),\n        MaxPooling2D(2, 2),\n        Dropout(0.25),\n        Conv2D(128, (3, 3), activation='relu'),\n        Conv2D(128, (3, 3), activation='relu'),\n        MaxPooling2D(2, 2),\n        Dropout(0.25),\n        Flatten(),\n        Dense(1024, activation='relu'),\n        Dropout(0.5),\n        Dense(7, activation='softmax')\n    ])\n    return model\n\ndef preprocess_face_for_emotion(face_image):\n    face_gray = cv2.cvtColor(face_image, cv2.COLOR_BGR2GRAY)\n    face_resized = cv2.resize(face_gray, (48, 48))\n    face_normalized = face_resized / 255.0\n    face_expanded = np.expand_dims(face_normalized, axis=-1)\n    return face_expanded"
+    },
+    "ubfc_rppg": {
+      "code": "from VitalLens_Complete_script import DatasetDownloader\nimport os\nimport cv2\nimport numpy as np\n\ndef load_ubfc_rppg():\n    downloader = DatasetDownloader()\n    if not os.path.exists('datasets/UBFC-rPPG'):\n        downloader.download_ubfc_rppg()\n    \n    dataset_path = 'datasets/UBFC-rPPG'\n    processed_data = []\n    \n    for subject_dir in os.listdir(dataset_path):\n        subject_path = os.path.join(dataset_path, subject_dir)\n        video_path = os.path.join(subject_path, 'vid.avi')\n        ground_truth_path = os.path.join(subject_path, 'ground_truth.txt')\n        \n        if os.path.exists(video_path) and os.path.exists(ground_truth_path):\n            with open(ground_truth_path, 'r') as f:\n                hr_values = [float(line.strip()) for line in f.readlines()]\n            \n            cap = cv2.VideoCapture(video_path)\n            frames = []\n            while True:\n                ret, frame = cap.read()\n                if not ret:\n                    break\n                frames.append(frame)\n            cap.release()\n            \n            processed_data.append({\n                'video_frames': np.array(frames),\n                'heart_rate_sequence': hr_values,\n                'subject_id': subject_dir\n            })\n    return processed_data"
+    }
+  },
+  "multimodal_synchronization": {
+    "temporal_alignment": {
+      "code": "def synchronize_multimodal_data(video_frames, audio_features, gaze_data, fps=30):\n    frame_timestamps = np.arange(len(video_frames)) / fps\n    \n    if len(audio_features) != len(video_frames):\n        audio_indices = np.linspace(0, len(audio_features)-1, len(video_frames))\n        synchronized_audio = np.array([audio_features[int(idx)] for idx in audio_indices])\n    else:\n        synchronized_audio = audio_features\n    \n    synchronized_gaze = []\n    for frame_idx, timestamp in enumerate(frame_timestamps):\n        closest_gaze = min(gaze_data, key=lambda x: abs(x['timestamp'] - timestamp))\n        synchronized_gaze.append([closest_gaze['gaze_x'], closest_gaze['gaze_y']])\n    \n    return {\n        'video_frames': video_frames,\n        'audio_features': synchronized_audio,\n        'gaze_coordinates': np.array(synchronized_gaze),\n        'timestamps': frame_timestamps\n    }"
+    },
+    "cross_modal_validation": {
+      "code": "def validate_multimodal_consistency(video_emotion, audio_emotion, gaze_pattern):\n    emotion_agreement = (video_emotion == audio_emotion)\n    center_x, center_y = 0.5, 0.5\n    gaze_distance = np.sqrt((gaze_pattern[:, 0] - center_x)**2 + (gaze_pattern[:, 1] - center_y)**2)\n    engagement_score = 1.0 - np.mean(gaze_distance)\n    \n    consistency_score = {\n        'emotion_agreement': emotion_agreement,\n        'engagement_score': engagement_score,\n        'overall_consistency': (emotion_agreement * 0.7 + engagement_score * 0.3)\n    }\n    return consistency_score"
     }
   },
   "techniques_summary": {
@@ -233,6 +515,82 @@
       "Cross-modal consistency",
       "Progressive training"
     ]
+  },
+  "emotion_mapping": {
+    "angry": 0,
+    "anger": 0,
+    "mad": 0,
+    "disgust": 1,
+    "disgusted": 1,
+    "fear": 2,
+    "scared": 2,
+    "afraid": 2,
+    "happy": 3,
+    "joy": 3,
+    "happiness": 3,
+    "joyful": 3,
+    "neutral": 4,
+    "normal": 4,
+    "calm": 4,
+    "sad": 5,
+    "sadness": 5,
+    "sorrow": 5,
+    "surprise": 6,
+    "surprised": 6,
+    "shock": 6,
+    "content": 4
+  },
+  "standard_emotions": [
+    "angry",
+    "disgust", 
+    "fear",
+    "happy",
+    "neutral",
+    "sad",
+    "surprise"
+  ],
+  "dataset_statistics": {
+    "total_datasets": 22,
+    "huggingface_datasets": 11,
+    "kaggle_resources": 14,
+    "traditional_rppg": 3,
+    "high_priority": 8,
+    "multimodal_ready": 12,
+    "categories": {
+      "emotion_detection": 6,
+      "eye_tracking": 4,
+      "physiological": 1,
+      "human_action": 2,
+      "audio_emotion": 3,
+      "facial_emotion": 10,
+      "multimodal": 2,
+      "traditional_rppg": 3
+    }
+  },
+  "recommendations": {
+    "primary_datasets": {
+      "rppg": ["kyegorov/mcd_rppg", "UBFC-rPPG", "PURE", "COHFACE"],
+      "emotions": ["boltuix/emotions-dataset", "ChristophSchuhmann/emotions", "AdamCodd/yolo-emotions"],
+      "eyetracking": ["shiv213/Eye-tracking-and-Sentiment-Analysis-Dataset-II"],
+      "behavioral": ["Bingsu/Human_Action_Recognition"]
+    },
+    "training_strategy": {
+      "phase_1": "rPPG foundation training",
+      "phase_2": "Visual emotion detection",
+      "phase_3": "Audio emotion integration", 
+      "phase_4": "Eye-tracking and behavioral fusion"
+    },
+    "budget_allocation": {
+      "modal_a100": "$300 for primary training (phases 1-2)",
+      "modal_h100": "$200 for advanced multi-modal (phases 3-4)",
+      "runpod_rtx4090": "$150 for experimentation and validation"
+    },
+    "expected_performance": {
+      "rppg_accuracy": "HR MAE < 1.0 BPM, RR MAE < 1.0 BPM",
+      "emotion_accuracy": ">75% across visual modalities",
+      "audio_emotion": ">70% on speech samples",
+      "multimodal_fusion": ">80% with cross-modal consistency"
+    }
   },
   "performance_targets": {
     "rppg": {
