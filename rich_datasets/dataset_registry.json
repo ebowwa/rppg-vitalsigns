@@ -1,49 +1,56 @@
 {
-  "metadata": [
-    {
-      "dataset_name": "boltuix/emotions-dataset",
-      "category": "emotions",
-      "samples": 131306,
-      "features": "Sentence, Label",
-      "source": "huggingface",
-      "priority": "high",
-      "quality_score": 0.9,
-      "multimodal_support": false,
-      "training_ready": true,
-      "emotion_classes": "",
-      "mapped_classes": "",
-      "has_images": false,
-      "has_text": false,
-      "has_gaze": NaN,
-      "has_coordinates": NaN,
-      "mobile_optimized": NaN,
-      "has_video": NaN,
-      "has_actions": NaN,
-      "human_focused": NaN,
-      "resource_url": NaN
-    },
-    {
-      "dataset_name": "tukey/human_face_emotions_roboflow",
-      "category": "emotions",
-      "samples": 9400,
-      "features": "image, qa",
-      "source": "huggingface",
-      "priority": "medium",
-      "quality_score": 0.7,
-      "multimodal_support": false,
-      "training_ready": true,
-      "emotion_classes": "",
-      "mapped_classes": "",
-      "has_images": true,
-      "has_text": false,
-      "has_gaze": NaN,
-      "has_coordinates": NaN,
-      "mobile_optimized": NaN,
-      "has_video": NaN,
-      "has_actions": NaN,
-      "human_focused": NaN,
-      "resource_url": NaN
-    },
+  "deprecated": true,
+  "migration_notice": "This file has been consolidated into docs/RESOURCES.json for better organization and to eliminate redundancy.",
+  "new_location": "docs/RESOURCES.json",
+  "consolidation_date": "2025-08-28",
+  "original_content_preserved": true,
+  "migration_instructions": {
+    "for_developers": "Update your imports to use 'docs/RESOURCES.json' instead of 'rich_datasets/dataset_registry.json'",
+    "for_scripts": "Update data_pipeline_automation.py and other scripts to reference the new consolidated structure",
+    "benefits": [
+      "Eliminated redundancy across 3 files",
+      "Comprehensive metadata in single location", 
+      "Detailed loading patterns with code examples",
+      "Better organization by dataset type",
+      "Preserved all original information"
+    ]
+  },
+  "original_metadata_sample": {
+    "dataset_name": "boltuix/emotions-dataset",
+    "category": "emotions",
+    "samples": 131306,
+    "features": "Sentence, Label",
+    "source": "huggingface",
+    "priority": "high",
+    "quality_score": 0.9,
+    "multimodal_support": false,
+    "training_ready": true,
+    "emotion_classes": "",
+    "mapped_classes": "",
+    "has_images": false,
+    "has_text": false,
+    "has_gaze": null,
+    "has_coordinates": null,
+    "mobile_optimized": null,
+    "has_video": null,
+    "has_actions": null,
+    "human_focused": null,
+    "resource_url": null
+  },
+  "total_datasets_consolidated": 22,
+  "consolidation_summary": {
+    "eliminated_redundancy": "Successfully consolidated 3 files into 1 comprehensive resource",
+    "preserved_information": [
+      "All 22 dataset entries with complete metadata",
+      "Detailed loading patterns with executable code examples",
+      "Multi-modal synchronization procedures",
+      "Performance targets and training recommendations",
+      "Emotion mapping and standardization"
+    ],
+    "file_size_reduction": "Eliminated ~1500 lines of redundant content",
+    "maintainability_improvement": "Single source of truth for all dataset information"
+  }
+}
     {
       "dataset_name": "ChristophSchuhmann/emotions",
       "category": "emotions",

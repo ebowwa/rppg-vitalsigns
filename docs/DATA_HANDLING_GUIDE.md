@@ -477,6 +477,10 @@ def calculate_snr(signal, fs=30, hr_range=(0.7, 4.0)):
 
 ## Dataset-Specific Guides
 
+For detailed dataset information, see:
+- [Consolidated Dataset Registry](RESOURCES.json) - Comprehensive dataset information with metadata, loading patterns, and code examples for all 22 datasets
+- [Individual Dataset Guides](INDIVIDUAL_DATASET_GUIDES.md) - Streamlined guide referencing the consolidated dataset information
+
 ### 1. boltuix/emotions-dataset
 ```python
 # Download and process
