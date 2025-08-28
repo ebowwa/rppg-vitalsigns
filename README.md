@@ -2,7 +2,32 @@
 
 An open-source implementation for estimating vital signs (heart rate, respiratory rate) from facial videos using remote photoplethysmography.
 
-## Overview
+## Table of Contents
+
+1. [Overview](#1-overview)
+2. [Project Structure](#2-project-structure)
+3. [Key Features](#3-key-features)
+4. [Performance Benchmarks](#4-performance-benchmarks)
+5. [Datasets](#5-datasets)
+6. [Installation](#6-installation)
+7. [Quick Start](#7-quick-start)
+   - [7.1 Complete Training & Mobile Deployment](#71-complete-training--mobile-deployment)
+   - [7.2 Training Only](#72-training-only)
+   - [7.3 Evaluation](#73-evaluation)
+   - [7.4 Example Usage](#74-example-usage)
+8. [📱 Mobile Deployment](#8--mobile-deployment)
+   - [8.1 Complete iOS Pipeline](#81-complete-ios-pipeline)
+   - [8.2 Mobile Optimization Features](#82-mobile-optimization-features)
+   - [8.3 iOS Integration](#83-ios-integration)
+   - [8.4 Performance Targets](#84-performance-targets)
+9. [Research Context](#9-research-context)
+10. [Contributing](#10-contributing)
+11. [License](#11-license)
+12. [Citation](#12-citation)
+13. [Acknowledgments](#13-acknowledgments)
+14. [Disclaimer](#14-disclaimer)
+
+## 1. Overview
 
 This project aims to recreate and extend the capabilities demonstrated in VitalLens and similar rPPG applications. It provides tools for:
 - Real-time heart rate and respiratory rate estimation from video
@@ -10,7 +35,7 @@ This project aims to recreate and extend the capabilities demonstrated in VitalL
 - Comprehensive evaluation framework
 - Support for diverse public datasets
 
-## Project Structure
+## 2. Project Structure
 
 ```
 rppg-vitalsigns/
@@ -27,7 +52,7 @@ rppg-vitalsigns/
 └── README.md
 ```
 
-## Key Features
+## 3. Key Features
 
 - **Multi-task Learning**: Combined rPPG vital signs estimation and emotion detection
 - **VitalLens Architecture**: EfficientNetV2-based model with temporal processing and attention
@@ -37,7 +62,7 @@ rppg-vitalsigns/
 - **Evaluation**: Comprehensive metrics including MAE, SNR, Pearson correlation, and emotion accuracy
 - **Real-time Processing**: Optimized for live video inference
 
-## Performance Benchmarks
+## 4. Performance Benchmarks
 
 Based on VitalLens paper (on VV-Medium dataset):
 
@@ -50,7 +75,7 @@ Based on VitalLens paper (on VV-Medium dataset):
 | MTTS-CAN   | 0.99         | 7.52           | 22.1                |
 | VitalLens  | 0.71         | 8.56           | 18.0                |
 
-## Datasets
+## 5. Datasets
 
 ### Available Public Datasets
 
@@ -63,7 +88,7 @@ Based on VitalLens paper (on VV-Medium dataset):
 
 See `docs/datasets.md` for detailed access instructions.
 
-## Installation
+## 6. Installation
 
 ```bash
 # Clone the repository
@@ -74,9 +99,9 @@ cd rppg-vitalsigns
 pip install -r requirements.txt
 ```
 
-## Quick Start
+## 7. Quick Start
 
-### Complete Training & Mobile Deployment
+### 7.1 Complete Training & Mobile Deployment
 ```bash
 # Install dependencies
 pip install -r requirements.txt
@@ -97,7 +122,7 @@ python scripts/deploy_mobile.py --checkpoint best_model.pth --enable-pruning --e
 ./mobile_deployment/deploy_vitallens.sh modal path/to/checkpoint.pth
 ```
 
-### Training Only
+### 7.2 Training Only
 ```bash
 # Download datasets
 python scripts/download_datasets.py --all
@@ -112,14 +137,14 @@ python scripts/train_runpod.py --epochs 50 --batch-size 8
 python test_pipeline.py
 ```
 
-### Evaluation
+### 7.3 Evaluation
 
 ```bash
 # Evaluate trained model
 python scripts/evaluate.py --model_path best_model.pth
 ```
 
-### Example Usage
+### 7.4 Example Usage
 
 ```python
 # Example usage for rPPG + emotion detection
@@ -142,9 +167,9 @@ print(f"Respiratory Rate: {outputs['resp_rate'].item():.1f} bpm")
 print(f"Emotion: {torch.argmax(outputs['emotion_logits'], dim=1).item()}")
 ```
 
-## 📱 Mobile Deployment
+## 8. 📱 Mobile Deployment
 
-### Complete iOS Pipeline
+### 8.1 Complete iOS Pipeline
 The VitalLens multi-modal model supports complete mobile deployment with optimization:
 
 ```bash
@@ -160,32 +185,32 @@ python scripts/deploy_mobile.py \
 ./mobile_deployment/deploy_vitallens.sh modal path/to/checkpoint.pth
 ```
 
-### Mobile Optimization Features
+### 8.2 Mobile Optimization Features
 - **Model Compression**: Pruning + Quantization (24.5M → <20MB)
 - **Performance Optimization**: <18ms inference on iPhone
 - **Multi-Modal Support**: Video + Audio + Eye-tracking
 - **Neural Engine**: Optimized for iOS hardware acceleration
 
-### iOS Integration
+### 8.3 iOS Integration
 - **Core ML Model**: `VitalLensMultiModal.mlmodel` (iOS 15+)
 - **Swift Framework**: Complete integration code provided
 - **Real-time Processing**: 30 FPS video processing
 - **Multi-Modal Outputs**: rPPG + Emotions + Gaze coordinates
 
-### Performance Targets
+### 8.4 Performance Targets
 - **Inference Time**: <18ms on iPhone (Neural Engine)
 - **Model Size**: <20MB (optimized from 24.5M parameters)
 - **Accuracy**: Maintains training performance after optimization
 - **Battery Usage**: Optimized for mobile power constraints
 
-## Research Context
+## 9. Research Context
 
 This project builds upon extensive research in rPPG, including:
 - Classical methods: G (Verkruysse et al., 2008), CHROM (de Haan & Jeanne, 2013), POS (Wang et al., 2017)
 - Deep learning approaches: DeepPhys (Chen & McDuff, 2018), MTTS-CAN (Liu et al., 2020)
 - Recent advances: VitalLens (Rouast, 2023)
 
-## Contributing
+## 10. Contributing
 
 Contributions are welcome! Areas of interest:
 - Implementing additional rPPG algorithms
@@ -193,11 +218,11 @@ Contributions are welcome! Areas of interest:
 - Improving real-time performance
 - Enhancing robustness to movement and lighting variations
 
-## License
+## 11. License
 
 MIT License (see LICENSE file)
 
-## Citation
+## 12. Citation
 
 If you use this code in your research, please cite:
 
@@ -209,12 +234,12 @@ If you use this code in your research, please cite:
 }
 ```
 
-## Acknowledgments
+## 13. Acknowledgments
 
 - VitalLens paper authors for technical insights
 - Public dataset contributors
 - Open-source rPPG community
 
-## Disclaimer
+## 14. Disclaimer
 
 This is a research implementation. Not intended for medical diagnosis or clinical use.
