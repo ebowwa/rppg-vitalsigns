@@ -196,6 +196,27 @@ def train_vitallens():
     
     wandb.finish()
     print("Training completed!")
+    
+    auto_deploy = os.environ.get('AUTO_DEPLOY_MOBILE', 'false').lower() == 'true'
+    if auto_deploy:
+        print("🚀 Auto-triggering mobile deployment...")
+        try:
+            import subprocess
+            subprocess.run([
+                'python', 'scripts/deploy_mobile.py',
+                '--checkpoint', 'best_model.pth',
+                '--output-dir', './mobile_deployment',
+                '--model-name', 'VitalLensMultiModal',
+                '--target-size-mb', '20',
+                '--target-inference-ms', '18',
+                '--enable-pruning',
+                '--enable-quantization'
+            ], check=True)
+            print("✅ Mobile deployment completed automatically!")
+        except subprocess.CalledProcessError as e:
+            print(f"❌ Auto mobile deployment failed: {e}")
+        except Exception as e:
+            print(f"❌ Auto mobile deployment error: {e}")
 
 if __name__ == "__main__":
     with app.run():
