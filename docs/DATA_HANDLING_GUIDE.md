@@ -14,6 +14,7 @@
 8. [Quality Assessment](#quality-assessment)
 9. [Dataset-Specific Guides](#dataset-specific-guides)
 10. [Troubleshooting](#troubleshooting)
+11. [Individual Dataset Examination](#individual-dataset-examination)
 
 ## Overview
 
@@ -837,6 +838,21 @@ This comprehensive data handling guide covers all aspects of working with the 22
 - **Troubleshooting**: Solutions for common issues and robust error handling
 
 The pipeline is designed to handle the complete data workflow from raw dataset download to training-ready batches, with comprehensive quality control and performance optimization throughout.
+
+## Individual Dataset Examination
+
+For detailed examination of each of the 22 datasets with specific loading patterns, preprocessing requirements, and integration procedures, see:
+
+**[Individual Dataset Guides](INDIVIDUAL_DATASET_GUIDES.md)**
+
+This comprehensive guide covers:
+- **7 HuggingFace datasets** with specific loading patterns
+- **15 Kaggle resources** for technique extraction
+- **Traditional rPPG datasets** with existing infrastructure
+- **Multi-modal synchronization** procedures
+- **Quality assessment** and validation frameworks
+
+Each dataset has been individually examined with practical code examples, preprocessing steps, and integration patterns suitable for the VitalLens multi-modal architecture.
 
 ---
 
