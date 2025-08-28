@@ -105,7 +105,7 @@ For Kaggle datasets, the pipeline uses the Kaggle API:
 # Setup Kaggle API credentials first
 # Place kaggle.json in ~/.kaggle/ or set KAGGLE_USERNAME/KAGGLE_KEY
 
-from scripts.create_rich_dataset import KaggleDatasetDownloader
+from src.data.kaggle_downloader import KaggleDatasetDownloader
 
 downloader = KaggleDatasetDownloader()
 
@@ -127,9 +127,10 @@ downloader.download_dataset(
 For established rPPG datasets (UBFC-rPPG, PURE, COHFACE):
 
 ```python
-from VitalLens_Complete_script import DatasetDownloader
+from scripts.download_datasets import download_huggingface_datasets
 
-downloader = DatasetDownloader()
+# Download all HuggingFace datasets
+download_huggingface_datasets()
 
 # Download UBFC-rPPG dataset
 downloader.download_ubfc_rppg(
@@ -215,9 +216,10 @@ def process_emotion_sample(sample):
 
 #### rPPG Dataset Loading
 ```python
-from VitalLens_Complete_script import RPPGDataProcessor
+from src.data.dataset import RPPGEmotionDataset
 
-processor = RPPGDataProcessor()
+# Initialize dataset processor
+dataset = RPPGEmotionDataset(data_dir='./datasets')
 
 # Load rPPG dataset
 rppg_data = processor.load_dataset(
@@ -289,10 +291,10 @@ video_transform = transforms.Compose([
 ])
 
 # Advanced preprocessing with face detection
-from VitalLens_Complete_script import FaceDetector, ROIExtractor
+from src.data.dataset import RPPGEmotionDataset
 
-face_detector = FaceDetector()
-roi_extractor = ROIExtractor()
+# Face detection and ROI extraction handled by dataset class
+dataset = RPPGEmotionDataset(data_dir='./datasets', enable_face_detection=True)
 
 def preprocess_video_advanced(video_frames):
     processed_frames = []
@@ -417,9 +419,10 @@ def validate_multimodal_sample(sample):
 
 ### Automatic Quality Filtering
 ```python
-from VitalLens_Complete_script import QualityAssessment
+from src.data.dataset import RPPGEmotionDataset
 
-quality_assessor = QualityAssessment()
+# Quality assessment integrated into dataset class
+dataset = RPPGEmotionDataset(data_dir='./datasets', quality_threshold=0.7)
 
 def assess_sample_quality(video_frames, rppg_signal=None):
     quality_metrics = {}
